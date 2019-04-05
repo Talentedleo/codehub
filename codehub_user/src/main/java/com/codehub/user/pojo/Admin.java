@@ -24,6 +24,7 @@ public class Admin implements Serializable{
 
 	private String loginname;//登陆名称
 	private String password;//密码
+	private String avatar;//管理员头像url地址
 	private String state;//状态
 
 }

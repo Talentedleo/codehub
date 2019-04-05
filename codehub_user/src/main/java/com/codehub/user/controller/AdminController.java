@@ -2,15 +2,20 @@ package com.codehub.user.controller;
 
 import com.codehub.user.pojo.Admin;
 import com.codehub.user.service.AdminService;
+import com.netflix.discovery.converters.Auto;
 import entity.PageResult;
 import entity.Result;
 import entity.StatusCode;
+import io.jsonwebtoken.Claims;
+import org.apache.http.HttpRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 import util.JwtUtil;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -19,7 +24,7 @@ import java.util.Map;
  *
  */
 @RestController
-@CrossOrigin
+//@CrossOrigin
 @RequestMapping("/admin")
 public class AdminController {
 
@@ -128,6 +133,35 @@ public class AdminController {
 			//登录成功
 			return new Result(true, StatusCode.OK, "登录成功", data);
 		}
+	}
+
+	/**
+	 * 获取管理员信息
+	 */
+	@RequestMapping(value = "/info", method = RequestMethod.GET)
+	public Result info(@RequestParam String token){
+		//校验token合法性
+		Claims claims = jwtUtil.parseJWT(token);
+
+		if (claims != null){
+			String id = claims.getId();
+			// 根据荷载中获取的id查找管理员
+			Admin adminInfo = adminService.findById(id);
+			List roleList = new ArrayList<>();
+			roleList.add("admin");
+
+			//封装返回数据
+			Map data = new HashMap();
+			data.put("name", adminInfo.getLoginname());
+			data.put("avatar", adminInfo.getAvatar());
+			data.put("role", roleList);
+			data.put("roles", roleList);
+			return new Result(true, StatusCode.OK, "获取用户信息成功", data);
+
+		}else {
+			return new Result(false, StatusCode.ACCESS_ERROR, "获取用户信息失败");
+		}
+
 	}
 	
 }

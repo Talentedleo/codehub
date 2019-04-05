@@ -22,7 +22,7 @@ import java.util.Map;
  */
 @RestController  //返回json格式
 @RequestMapping("/label")
-@CrossOrigin  //支持跨域请求
+//@CrossOrigin  //支持跨域请求
 public class LabelController {
 
     @Autowired

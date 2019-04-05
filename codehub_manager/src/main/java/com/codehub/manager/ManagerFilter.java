@@ -54,6 +54,7 @@ public class ManagerFilter extends ZuulFilter {
         //放行管理员登录请求
         String requestURI = request.getRequestURI();
         if (requestURI.contains("/admin/login")){
+
             //放行
             return null;
         }
