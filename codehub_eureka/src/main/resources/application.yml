@@ -1,0 +1,11 @@
+server:
+  port: 6868  # 端口可以自定义
+spring:
+  application:
+    name: codehub-eureka
+eureka:
+  client:
+    register-with-eureka: false  # 是否需要把当前服务注册到Eureka服务端
+    fetch-registry: false  # 是否需要从Eureka获取注册信息
+    service-url:   # 定义Eureka注册地址
+      defaultZone: http://127.0.0.1:${server.port}/eureka
