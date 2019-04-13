@@ -20,7 +20,7 @@ import java.util.concurrent.TimeUnit;
  * 吐槽controller
  */
 @RestController
-//@CrossOrigin
+@CrossOrigin
 @RequestMapping("/spit")
 public class SpitController {
 

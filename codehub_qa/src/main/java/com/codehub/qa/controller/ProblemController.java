@@ -18,7 +18,7 @@ import java.util.Map;
  *
  */
 @RestController
-//@CrossOrigin
+@CrossOrigin
 @RequestMapping("/problem")
 public class ProblemController {
 

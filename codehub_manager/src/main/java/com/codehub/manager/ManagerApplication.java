@@ -14,7 +14,7 @@ import util.JwtUtil;
  * @Author Weiping Li
  * @Version 1.0
  * File Created on 2018/11/26
- *
+ * <p>
  * 管理员后台网站网关
  */
 @SpringBootApplication
@@ -27,11 +27,13 @@ public class ManagerApplication {
     }
 
     @Bean
-    public JwtUtil jwtUtil(){
+    public JwtUtil jwtUtil() {
         return new JwtUtil();
     }
 
-    //由于加入了网关, 所有跨域问题都交给zuul来解决, 同时子服务@CrossOrigin全部注释, 否则会出现跨域的错误
+    /**
+     * 由于加入了网关, 所有跨域问题都交给zuul来解决, 同时子服务@CrossOrigin全部注释, 否则会出现跨域的错误
+     */
     @Bean
     public CorsFilter corsFilter() {
         final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();

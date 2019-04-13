@@ -18,7 +18,7 @@ import javax.servlet.http.HttpServletRequest;
  */
 @RestController
 @RequestMapping("/friend")
-//@CrossOrigin
+@CrossOrigin
 public class FriendController {
 
     @Autowired

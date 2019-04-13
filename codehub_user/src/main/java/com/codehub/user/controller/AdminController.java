@@ -24,7 +24,7 @@ import java.util.Map;
  *
  */
 @RestController
-//@CrossOrigin
+@CrossOrigin
 @RequestMapping("/admin")
 public class AdminController {
 

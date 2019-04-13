@@ -24,7 +24,7 @@ import java.util.Map;
  * File Created on 2018/11/17
  *
  * 标签service
- * 十次方是通过controller来相互调用的,所以service可以没有接口
+ * 通过controller来相互调用的,所以service可以没有接口
  */
 @Service
 public class LabelService {
