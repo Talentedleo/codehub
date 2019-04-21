@@ -21,7 +21,7 @@ import java.util.Map;
  */
 @RestController  //返回json格式
 @RequestMapping("/city")
-@CrossOrigin
+//@CrossOrigin
 public class CityController {
 
     @Autowired

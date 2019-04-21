@@ -10,6 +10,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -20,7 +21,7 @@ import java.util.concurrent.TimeUnit;
  * 吐槽controller
  */
 @RestController
-@CrossOrigin
+//@CrossOrigin
 @RequestMapping("/spit")
 public class SpitController {
 
@@ -59,6 +60,13 @@ public class SpitController {
     public Result delete(@PathVariable String id){
         spitService.deleteById(id);
         return new Result(true, StatusCode.OK, "删除成功");
+    }
+
+    /** 根据搜索内容查询吐槽 */
+    @RequestMapping(value = "/search/{page}/{size}", method = RequestMethod.POST)
+    public Result search(@PathVariable int page, @PathVariable int size, @RequestBody Map searchMap){
+        Page<Spit> pageData = spitService.search(searchMap, page, size);
+        return new Result(true, StatusCode.OK, "查询成功", new PageResult<>(pageData.getTotalElements(), pageData.getContent()));
     }
 
     /** 根据parentId查询吐槽评论 */

@@ -42,6 +42,7 @@
         <java.version>1.8</java.version>
         <!--用高版本的Eureka却引入了较低版本其他的cloud依赖包,为避免出差错,使用RELEASE-->
         <spring.cloud.version>Finchley.RELEASE</spring.cloud.version>
+        <!--<spring.cloud.version>Finchley.M9</spring.cloud.version>-->
     </properties>
 
     <dependencies>

@@ -60,7 +60,7 @@ public class WebFilter extends ZuulFilter {
      */
     @Override
     public Object run() throws ZuulException {
-        System.out.println("zuul过滤器...");
+        //System.out.println("zuul过滤器...");
 
         //1.从用户的请求获取Authorization信息
         RequestContext currentContext = RequestContext.getCurrentContext();

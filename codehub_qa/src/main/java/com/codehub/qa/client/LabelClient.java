@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
  *
  * 远程调用接口(标签模块)
  */
-@FeignClient(value = "codehub-base", fallback = LabelClientImpl.class)  //使用对方服务名称(注意:服务名称不能包含下划线),就是对方的spring.application.name
+@FeignClient(value = "base", fallback = LabelClientImpl.class)  //使用对方服务名称(注意:服务名称不能包含下划线),就是对方的spring.application.name
 public interface LabelClient {
 
     /** 根据id查询 */

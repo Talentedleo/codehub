@@ -32,7 +32,7 @@ public class ManagerApplication {
     }
 
     /**
-     * 由于加入了网关, 所有跨域问题都交给zuul来解决, 同时子服务@CrossOrigin全部注释, 否则会出现跨域的错误
+     * 由于加入了网关, 所有跨域问题都交给zuul来解决, 同时子服务//@CrossOrigin全部注释, 否则会出现跨域的错误
      */
     @Bean
     public CorsFilter corsFilter() {

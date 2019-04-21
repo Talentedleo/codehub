@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
  *
  * 远程调用用户模块接口
  */
-@FeignClient("codehub-user")
+@FeignClient("user")
 public interface UserClient {
 
     /** 更新关注数,x是更新的数量,正负都可以 */

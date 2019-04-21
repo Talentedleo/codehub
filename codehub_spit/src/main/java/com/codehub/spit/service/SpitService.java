@@ -2,9 +2,13 @@ package com.codehub.spit.service;
 
 import com.codehub.spit.dao.SpitDao;
 import com.codehub.spit.pojo.Spit;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
@@ -12,7 +16,9 @@ import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Service;
 import util.IdWorker;
 
+import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Author Weiping Li
@@ -30,6 +36,9 @@ public class SpitService {
     @Autowired
     private IdWorker idWorker;
 
+    @Autowired
+    private MongoTemplate mongoTemplate;
+
     /** 查询所有 */
     public List<Spit> findAll(){
         return spitDao.findAll();
@@ -43,6 +52,7 @@ public class SpitService {
     /** 添加 */
     public void add(Spit spit){
         spit.setId(idWorker.nextId() + "");
+        spit.setPublishtime(new Date());
         spitDao.save(spit);
 
         //如果该记录是吐槽的评论,则该评论对应的吐槽的回复数+1
@@ -69,6 +79,28 @@ public class SpitService {
         spitDao.deleteById(id);
     }
 
+    /** 分页时间倒序查询吐槽 */
+    public Page<Spit> search(Map searchMap, int page, int size) {
+        String content = (String) searchMap.get("content");
+        // 如果没有传参, 按时间倒序分页查询所有吐槽
+        if (StringUtils.isEmpty(content)){
+            // 发布时间倒序
+            Sort sort = new Sort(Direction.DESC, "publishtime");
+            // 查询对象
+            Query query = new Query();
+            // 查询出一共的条数
+            Long count =  mongoTemplate.count(query, Spit.class);
+            // Pageable对象
+            PageRequest pageable = PageRequest.of(page, size, sort);
+            // 查询按日期倒序的结果集合
+            List<Spit> list = mongoTemplate.find(query.with(pageable), Spit.class);
+            //将集合与分页结果封装
+            return new PageImpl<Spit>(list, pageable, count);
+        }
+        // PageRequest是Pageable接口的实现
+        return spitDao.findByContentLike(content, PageRequest.of(page, size));
+    }
+
     /** 分页查询吐槽的评论 */
     public Page<Spit> comment(String parentid, int page, int size) {
         // PageRequest是Pageable接口的实现
@@ -81,9 +113,6 @@ public class SpitService {
         spit.setThumbup(spit.getThumbup() + 1);
         update(spit);
     }*/
-
-    @Autowired
-    private MongoTemplate mongoTemplate;
 
     /** 吐槽点赞:第二种方案 */
     public void thumbup(String spitid) {
@@ -121,4 +150,5 @@ public class SpitService {
         // db.spit.update({"_id":"1065068496616034304"},{$inc:{"thumbup":NumberInt(1)}})
         mongoTemplate.updateFirst(query, update, "spit");
     }
+
 }
