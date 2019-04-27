@@ -1,6 +1,11 @@
+spring:
+  profiles:
+    active: prod
+---
 server:
   port: 12000
 spring:
+  profiles: dev
   application:
     name: config
   cloud:
@@ -21,5 +26,32 @@ eureka:
     fetch-registry: true  # 是否需要从Eureka获取注册信息
     service-url:  # 指定Eureka连接地址
       defaultZone: http://127.0.0.1:6868/eureka
+  instance:  # 让Eureka自动给服务分配IP地址
+    prefer-ip-address: true
+---
+server:
+  port: 12000
+spring:
+  profiles: prod
+  application:
+    name: config
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://gitee.com/talentedleo/codehub-config.git  # 从码云git上获取配置文件
+  rabbitmq:
+    host: 172.18.228.125
+management:  # 暴露触发消息总线的地址
+  endpoints:
+    web:
+      exposure:
+        include: bus-refresh
+eureka:
+  client:
+    register-with-eureka: true  # 是否需要把当前服务注册到Eureka服务端
+    fetch-registry: true  # 是否需要从Eureka获取注册信息
+    service-url:  # 指定Eureka连接地址
+      defaultZone: http://172.18.228.125:6868/eureka
   instance:  # 让Eureka自动给服务分配IP地址
     prefer-ip-address: true

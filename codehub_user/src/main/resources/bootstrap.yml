@@ -1,9 +1,25 @@
 spring:
+  profiles:
+    active: prod
+---
+spring:
+  profiles: dev
   cloud:
     config:
       uri: http://127.0.0.1:12000  # 配置中心服务的地址
       name: user  # 应用名称
       profile: dev # 环境名称(开发环境),uat:测试环境,prod:生产环境
+      label: master  # 仓库的分支名称
+    refresh:  # springboot2.0.1内存数据库与actuator不能同时使用(报datasource循环依赖),2.0.4后修复
+      refreshable: none
+---
+spring:
+  profiles: prod
+  cloud:
+    config:
+      uri: http://172.18.228.125:12000  # 配置中心服务的地址
+      name: user  # 应用名称
+      profile: prod # 环境名称(开发环境),uat:测试环境,prod:生产环境
       label: master  # 仓库的分支名称
     refresh:  # springboot2.0.1内存数据库与actuator不能同时使用(报datasource循环依赖),2.0.4后修复
       refreshable: none
