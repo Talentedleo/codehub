@@ -41,7 +41,7 @@ spring:
         git:
           uri: https://gitee.com/talentedleo/codehub-config.git  # 从码云git上获取配置文件
   rabbitmq:
-    host: 172.18.228.125
+    host: 47.107.252.243
 management:  # 暴露触发消息总线的地址
   endpoints:
     web:
@@ -52,6 +52,6 @@ eureka:
     register-with-eureka: true  # 是否需要把当前服务注册到Eureka服务端
     fetch-registry: true  # 是否需要从Eureka获取注册信息
     service-url:  # 指定Eureka连接地址
-      defaultZone: http://172.18.228.125:6868/eureka
+      defaultZone: http://47.107.252.243:6868/eureka
   instance:  # 让Eureka自动给服务分配IP地址
     prefer-ip-address: true
