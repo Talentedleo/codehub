@@ -80,7 +80,7 @@
                             <include>${project.build.finalName}.jar</include>
                         </resource>
                     </resources>
-                    <dockerHost>http://47.107.252.243:2375</dockerHost>
+                    <dockerHost>http://127.0.0.1:2375</dockerHost>
                 </configuration>
             </plugin>
         </plugins>
