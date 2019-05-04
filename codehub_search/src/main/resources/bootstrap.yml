@@ -17,7 +17,7 @@ spring:
   profiles: prod
   cloud:
     config:
-      uri: http://47.107.252.243:12000  # 配置中心服务的地址
+      uri: http://172.18.228.125:12000  # 配置中心服务的地址
       name: search  # 应用名称
       profile: prod # 环境名称(开发环境),uat:测试环境,prod:生产环境
       label: master  # 仓库的分支名称
